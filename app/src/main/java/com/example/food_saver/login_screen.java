@@ -40,7 +40,7 @@ public class login_screen extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
 
-        // ✅ Apni XML layout ke mutabiq link binding (id check kar lein agar farq ho)
+        
         tvSignUpLink = findViewById(R.id.tvSignUpLink);
 
         
@@ -127,7 +127,7 @@ public class login_screen extends AppCompatActivity {
             }
         });
 
-        // ✅ DONT HAVE AN ACCOUNT SIGNUP CLICK LOGIC (Yeh miss tha!)
+        
         if (tvSignUpLink != null) {
             tvSignUpLink.setOnClickListener(new View.OnClickListener() {
                 @Override
