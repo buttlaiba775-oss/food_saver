@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "171646389002",
+    "firebase_url": "https://food-saver-2f446-default-rtdb.firebaseio.com",
+    "project_id": "food-saver-2f446",
+    "storage_bucket": "food-saver-2f446.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:171646389002:android:44a3d807fd32191cd408f3",
+        "android_client_info": {
+          "package_name": "com.example.food_saver"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4YOP4xOyIJY-QzF_mnQhMkMa0FWXNrV0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

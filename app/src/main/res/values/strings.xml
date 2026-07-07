@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">FoodSaver</string>
+
+    <string-array name="food_categories">
+        <item>Select Category</item>
+        <item>Cooked Food</item>
+        <item>Raw Items</item>
+        <item>Bakery Items</item>
+        <item>Other</item>
+    </string-array>
+</resources>
