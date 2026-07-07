@@ -6,7 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView; // ✅ TextView shamil ho gaya
+import android.widget.TextView; 
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,7 +24,7 @@ public class login_screen extends AppCompatActivity {
 
     private EditText etEmail, etPassword;
     private Button btnLogin;
-    private TextView tvSignUpLink; // ✅ Sign Up text ke liye variable bana diya
+    private TextView tvSignUpLink; 
     private FirebaseAuth mAuth;
 
     private final boolean useDummyMode = true;
@@ -36,7 +36,6 @@ public class login_screen extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        // XML Views initialization
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
@@ -44,7 +43,7 @@ public class login_screen extends AppCompatActivity {
         // ✅ Apni XML layout ke mutabiq link binding (id check kar lein agar farq ho)
         tvSignUpLink = findViewById(R.id.tvSignUpLink);
 
-        // LOGIN BUTTON CLICK LOGIC
+        
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,22 +57,22 @@ public class login_screen extends AppCompatActivity {
 
                 if (useDummyMode) {
                     if (email.equals("admin@gmail.com") && password.equals("123456")) {
-                        Toast.makeText(login_screen.this, "Admin Login (Dummy)", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(login_screen.this, " Login successfully (Dummy)", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(login_screen.this, MainActivity.class));
                         finish();
                     }
                     else if (email.equals("donor@gmail.com") && password.equals("123456")) {
-                        Toast.makeText(login_screen.this, "Donor Login (Dummy)", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(login_screen.this, " Login successfully (Dummy)", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(login_screen.this, MainActivity.class));
                         finish();
                     }
                     else if (email.equals("ngo@gmail.com") && password.equals("123456")) {
-                        Toast.makeText(login_screen.this, "NGO Onboarding Login (Dummy)", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(login_screen.this, " Login successfully (Dummy)", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(login_screen.this, MainActivity.class));
                         finish();
                     }
                     else if (email.equals("recipient@gmail.com") && password.equals("123456")) {
-                        Toast.makeText(login_screen.this, "Recipient Login (Dummy)", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(login_screen.this, "Login successfully (Dummy)", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(login_screen.this, MainActivity.class));
                         finish();
                     }
