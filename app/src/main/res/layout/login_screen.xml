@@ -79,21 +79,32 @@
         app:layout_constraintStart_toStartOf="@id/tvWelcomeBack" />
 
     <!-- Password Input Field -->
-    <EditText
-        android:id="@+id/etPassword"
+    <!-- Password Input Field Wrapper for Eye Icon -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tlPassword"
         android:layout_width="0dp"
-        android:layout_height="54dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:background="@drawable/rounded_edittext_brown_border"
-        android:hint="......"
-        android:textColorHint="#A39386"
-        android:inputType="textPassword"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:textColor="#4A2E1B"
+        app:hintEnabled="false"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="#4A2E1B"
         app:layout_constraintTop_toBottomOf="@id/tvPasswordLabel"
         app:layout_constraintStart_toStartOf="@id/tvWelcomeBack"
-        app:layout_constraintEnd_toEndOf="@id/tvWelcomeBack" />
+        app:layout_constraintEnd_toEndOf="@id/tvWelcomeBack">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:background="@drawable/rounded_edittext_brown_border"
+            android:hint="......"
+            android:textColorHint="#A39386"
+            android:inputType="textPassword"
+            android:paddingStart="16dp"
+            android:paddingEnd="48dp"
+            android:textColor="#4A2E1B" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Forgot Password Link -->
     <TextView
@@ -105,8 +116,8 @@
         android:textColor="#7A4F37"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/etPassword"
-        app:layout_constraintEnd_toEndOf="@id/etPassword" />
+        app:layout_constraintTop_toBottomOf="@id/tlPassword"
+        app:layout_constraintEnd_toEndOf="@id/tlPassword" />
 
     <!-- Login Button -->
     <Button

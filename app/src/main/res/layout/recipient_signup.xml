@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="24dp"
-        android:gravity="center">
+        android:gravity="top|center_horizontal">
 
         <TextView
             android:id="@+id/tvRecipientTitle"
@@ -44,6 +44,7 @@
                 android:inputType="text"
                 android:textColor="#4A2E1B" />
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,9 +63,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="No of family members"
-                android:inputType="text"
+                android:inputType="number"
                 android:textColor="#4A2E1B" />
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -215,7 +217,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="40dp">
 
             <TextView
                 android:layout_width="wrap_content"
