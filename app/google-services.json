@@ -1,14 +1,33 @@
 {
   "project_info": {
-    "project_number": "171646389002",
-    "firebase_url": "https://food-saver-2f446-default-rtdb.firebaseio.com",
-    "project_id": "food-saver-2f446",
-    "storage_bucket": "food-saver-2f446.firebasestorage.app"
+    "project_number": "1048247939901",
+    "firebase_url": "https://food-saver-2f85d-default-rtdb.firebaseio.com",
+    "project_id": "food-saver-2f85d",
+    "storage_bucket": "food-saver-2f85d.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:171646389002:android:44a3d807fd32191cd408f3",
+        "mobilesdk_app_id": "1:1048247939901:android:c519da8e624e4b02078b54",
+        "android_client_info": {
+          "package_name": "com.example.FoodSaver"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASrQxP6pHh5-L_5Dq7O0GR4jPL2kLUTjo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1048247939901:android:d323f2f332b56188078b54",
         "android_client_info": {
           "package_name": "com.example.food_saver"
         }
@@ -16,7 +35,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyC4YOP4xOyIJY-QzF_mnQhMkMa0FWXNrV0"
+          "current_key": "AIzaSyASrQxP6pHh5-L_5Dq7O0GR4jPL2kLUTjo"
         }
       ],
       "services": {

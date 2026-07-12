@@ -58,7 +58,7 @@ public class login_screen extends AppCompatActivity {
                 if (useDummyMode) {
                     if (email.equals("admin@gmail.com") && password.equals("123456")) {
                         Toast.makeText(login_screen.this, " Login successfully (Dummy)", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(login_screen.this, MainActivity.class));
+                        startActivity(new Intent(login_screen.this, com.example.food_saver.admin.AdminDashboardActivity.class));
                         finish();
                     }
                     else if (email.equals("donor@gmail.com") && password.equals("123456")) {

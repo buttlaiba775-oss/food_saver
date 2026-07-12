@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/cream_background">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Manage Users"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:background="@color/brown_primary"
+        android:padding="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <Button
+            android:id="@+id/btnFilterAll"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="All"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/brown_primary"
+            android:layout_marginEnd="4dp"
+            android:textAllCaps="false"
+            android:textSize="12sp"
+            android:paddingStart="2dp"
+            android:paddingEnd="2dp"/>
+
+        <Button
+            android:id="@+id/btnFilterDonor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Donors"
+            android:textColor="@color/brown_primary"
+            android:backgroundTint="@color/white"
+            android:layout_marginEnd="4dp"
+            android:textAllCaps="false"
+            android:textSize="12sp"
+            android:paddingStart="2dp"
+            android:paddingEnd="2dp"/>
+
+        <Button
+            android:id="@+id/btnFilterNgo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="NGOs"
+            android:textColor="@color/brown_primary"
+            android:backgroundTint="@color/white"
+            android:layout_marginEnd="4dp"
+            android:textAllCaps="false"
+            android:textSize="12sp"
+            android:paddingStart="2dp"
+            android:paddingEnd="2dp"/>
+
+        <Button
+            android:id="@+id/btnFilterRecipient"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Recipients"
+            android:textColor="@color/brown_primary"
+            android:backgroundTint="@color/white"
+            android:textAllCaps="false"
+            android:textSize="12sp"
+            android:paddingStart="2dp"
+            android:paddingEnd="2dp"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewUsers"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="12dp"/>
+
+        <LinearLayout
+            android:id="@+id/emptyStateLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No users found"
+                android:textSize="17sp"
+                android:textColor="@color/brown_primary"
+                android:textStyle="bold"/>
+        </LinearLayout>
+    </FrameLayout>
+
+</LinearLayout>

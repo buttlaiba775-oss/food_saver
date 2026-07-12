@@ -28,7 +28,7 @@ public class Ngo_signup extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
 
-    private final boolean useDummyMode = true;
+    private final boolean useDummyMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +100,7 @@ public class Ngo_signup extends AppCompatActivity {
                                         ngoMap.put("phone", phone);
                                         ngoMap.put("address", address);
                                         ngoMap.put("role", "NGO"); //
+                                        ngoMap.put("status", "pending");
 
                                         // Saving to "Users" node
                                         FirebaseDatabase.getInstance().getReference("Users").child(userId)

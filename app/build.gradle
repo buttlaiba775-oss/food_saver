@@ -17,7 +17,6 @@ android {
         targetSdk 36
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -41,6 +40,8 @@ dependencies {
     implementation libs.firebase.auth
     implementation libs.firebase.database
     implementation libs.material
+    implementation 'com.google.firebase:firebase-firestore:25.1.1'
+
     testImplementation libs.junit
     androidTestImplementation libs.espresso.core
     androidTestImplementation libs.ext.junit
