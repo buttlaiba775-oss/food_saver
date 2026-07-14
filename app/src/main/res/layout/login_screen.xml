@@ -17,7 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
 
-    <!-- Welcome Back Title -->
+
     <TextView
         android:id="@+id/tvWelcomeBack"
         android:layout_width="0dp"
@@ -35,7 +35,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Email Label -->
+
     <TextView
         android:id="@+id/tvEmailLabel"
         android:layout_width="wrap_content"
@@ -48,7 +48,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvWelcomeBack"
         app:layout_constraintStart_toStartOf="@id/tvWelcomeBack" />
 
-    <!-- Email Input Field -->
+
     <EditText
         android:id="@+id/etEmail"
         android:layout_width="0dp"
@@ -65,7 +65,7 @@
         app:layout_constraintStart_toStartOf="@id/tvWelcomeBack"
         app:layout_constraintEnd_toEndOf="@id/tvWelcomeBack" />
 
-    <!-- Password Label -->
+
     <TextView
         android:id="@+id/tvPasswordLabel"
         android:layout_width="wrap_content"
@@ -78,8 +78,7 @@
         app:layout_constraintTop_toBottomOf="@id/etEmail"
         app:layout_constraintStart_toStartOf="@id/tvWelcomeBack" />
 
-    <!-- Password Input Field -->
-    <!-- Password Input Field Wrapper for Eye Icon -->
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tlPassword"
         android:layout_width="0dp"
@@ -106,7 +105,7 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Forgot Password Link -->
+
     <TextView
         android:id="@+id/tvForgotPassword"
         android:layout_width="wrap_content"
@@ -119,7 +118,7 @@
         app:layout_constraintTop_toBottomOf="@id/tlPassword"
         app:layout_constraintEnd_toEndOf="@id/tlPassword" />
 
-    <!-- Login Button -->
+
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="0dp"

@@ -2,6 +2,7 @@ package com.example.food_saver;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,18 +27,13 @@ public class recipient_signup extends AppCompatActivity {
     private TextView tvRecipientLoginLink;
     private FirebaseAuth mAuth;
 
-
-    private final boolean useDummyMode = true;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recipient_signup);
 
-        // Firebase Initialize
         mAuth = FirebaseAuth.getInstance();
 
-        // XML Views Layout Binding (As per your Component Tree IDs)
         etRecipientName = findViewById(R.id.etRecipientName);
         etRecipientFamilyMembers = findViewById(R.id.etRecipientFamilyMembers);
         etRecipientCnic = findViewById(R.id.etRecipientCnic);
@@ -47,11 +43,8 @@ public class recipient_signup extends AppCompatActivity {
         etRecipientPassword = findViewById(R.id.etRecipientPassword);
         etRecipientConfirmPassword = findViewById(R.id.etRecipientConfirmPassword);
         btnRecipientRegister = findViewById(R.id.btnRecipientRegister);
-
-        // Component tree ke mutabiq bottom "Login" link ki ID
         tvRecipientLoginLink = findViewById(R.id.tvRecipientLoginLink);
 
-        // SIGN UP BUTTON CLICK LISTENERS
         btnRecipientRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,71 +57,88 @@ public class recipient_signup extends AppCompatActivity {
                 String password = etRecipientPassword.getText().toString().trim();
                 String confirmPassword = etRecipientConfirmPassword.getText().toString().trim();
 
-                // Validation Checks
-                if (name.isEmpty() || familyMembers.isEmpty() || cnic.isEmpty() || email.isEmpty() || phone.isEmpty() || address.isEmpty() || password.isEmpty()) {
+
+                if (name.isEmpty() || familyMembers.isEmpty() || cnic.isEmpty() || email.isEmpty() || phone.isEmpty() || address.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                     Toast.makeText(recipient_signup.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+
+                if (cnic.length() != 13) {
+                    etRecipientCnic.setError("CNIC must be exactly 13 digits (without dashes)!");
+                    etRecipientCnic.requestFocus();
+                    return;
+                }
+
+                // 3. Email Validation
+                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    etRecipientEmail.setError("Please enter a valid email!");
+                    etRecipientEmail.requestFocus();
+                    return;
+                }
+
+
+                if (phone.length() != 11 || !phone.startsWith("03")) {
+                    etRecipientPhone.setError("Enter a valid 11-digit phone number");
+                    etRecipientPhone.requestFocus();
+                    return;
+                }
+
+
+                if (password.length() < 6) {
+                    etRecipientPassword.setError("Password must be at least 6 characters!");
+                    etRecipientPassword.requestFocus();
+                    return;
+                }
+
 
                 if (!password.equals(confirmPassword)) {
                     Toast.makeText(recipient_signup.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (useDummyMode) {
-                    Toast.makeText(recipient_signup.this, "Recipient Registered Successfully (Dummy)", Toast.LENGTH_SHORT).show();
-                    finish();
-                } else {
-                    // Firebase Auth Logic
-                    mAuth.createUserWithEmailAndPassword(email, password)
-                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful() && mAuth.getCurrentUser() != null) {
-                                        String userId = mAuth.getCurrentUser().getUid();
+                mAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful() && mAuth.getCurrentUser() != null) {
+                                    String userId = mAuth.getCurrentUser().getUid();
 
-                                        // Realtime Database Database Map Setup
-                                        HashMap<String, Object> userMap = new HashMap<>();
-                                        userMap.put("name", name);
-                                        userMap.put("familyMembers", familyMembers);
-                                        userMap.put("cnic", cnic);
-                                        userMap.put("email", email);
-                                        userMap.put("phone", phone);
-                                        userMap.put("address", address);
-                                        userMap.put("role", "Recipient");
+                                    HashMap<String, Object> userMap = new HashMap<>();
+                                    userMap.put("name", name);
+                                    userMap.put("familyMembers", familyMembers);
+                                    userMap.put("cnic", cnic);
+                                    userMap.put("email", email);
+                                    userMap.put("phone", phone);
+                                    userMap.put("address", address);
+                                    userMap.put("role", "Recipient");
 
-                                        FirebaseDatabase.getInstance().getReference("Users").child(userId)
-                                                .setValue(userMap)
-                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        if (task.isSuccessful()) {
-                                                            Toast.makeText(recipient_signup.this, "Recipient Registered Successfully", Toast.LENGTH_SHORT).show();
-                                                            finish();
-                                                        } else {
-                                                            Toast.makeText(recipient_signup.this, "Database Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                                        }
+                                    FirebaseDatabase.getInstance().getReference("Users").child(userId)
+                                            .setValue(userMap)
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        Toast.makeText(recipient_signup.this, "Recipient Registered Successfully", Toast.LENGTH_SHORT).show();
+                                                        finish();
+                                                    } else {
+                                                        Toast.makeText(recipient_signup.this, "Database Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                                     }
-                                                });
-                                    } else {
-                                        Toast.makeText(recipient_signup.this, "Auth Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
+                                                }
+                                            });
+                                } else {
+                                    Toast.makeText(recipient_signup.this, "Auth Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
-                            });
-                }
+                            }
+                        });
             }
         });
 
-
         if (tvRecipientLoginLink != null) {
-            tvRecipientLoginLink.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Wapas login screen par bhejne ke liye
-                    Intent intent = new Intent(recipient_signup.this, login_screen.class);
-                    startActivity(intent);
-                    finish();
-                }
+            tvRecipientLoginLink.setOnClickListener(v -> {
+                Intent intent = new Intent(recipient_signup.this, login_screen.class);
+                startActivity(intent);
+                finish();
             });
         }
     }

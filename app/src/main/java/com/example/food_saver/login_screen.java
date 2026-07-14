@@ -89,16 +89,16 @@ public class login_screen extends AppCompatActivity {
 
     private void handleDummyLogin(String email, String password) {
         if (email.equals("donor@gmail.com") && password.equals("123456")) {
-            Toast.makeText(this, "Donor Login Successful", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, " Login Successfully", Toast.LENGTH_SHORT).show();
             navigateToDashboard("donor");
         } else if (email.equals("admin@gmail.com") && password.equals("123456")) {
-            Toast.makeText(this, "Admin Login Successful", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, " Login Successfully", Toast.LENGTH_SHORT).show();
             navigateToDashboard("admin");
         } else if (email.equals("recipient@gmail.com") && password.equals("123456")) {
-            Toast.makeText(this, "Recipient Login Successful", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, " Login Successfully", Toast.LENGTH_SHORT).show();
             navigateToDashboard("recipient");
         } else if (email.equals("ngo@gmail.com") && password.equals("123456")) {
-            Toast.makeText(this, "NGO Login Successful", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, " Login Successfully", Toast.LENGTH_SHORT).show();
             navigateToDashboard("ngo");
         } else {
             Toast.makeText(this, "Invalid Dummy Credentials", Toast.LENGTH_SHORT).show();
@@ -127,7 +127,7 @@ public class login_screen extends AppCompatActivity {
                 if (snapshot.exists()) {
                     String role = snapshot.child("role").getValue(String.class);
                     if (role != null) {
-                        Toast.makeText(login_screen.this, role.toUpperCase() + " Login Successful", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(login_screen.this, role.toUpperCase() + " Login Successfully", Toast.LENGTH_SHORT).show();
                         navigateToDashboard(role);
                     } else {
                         Toast.makeText(login_screen.this, "Role not found in database", Toast.LENGTH_SHORT).show();

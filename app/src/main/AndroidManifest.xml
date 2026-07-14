@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
 
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/food_saver_logo"
         android:label="FoodSaver"
         android:supportsRtl="true"
         android:theme="@style/Theme.Foodsaver">
 
 
         <activity
-            android:name=".splash_screen"
+            android:name=".Splash_screen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,7 +40,6 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
-
         <activity
             android:name=".Ngo_signup"
             android:exported="false"
@@ -58,6 +60,44 @@
         android:exported="false" />
         <activity
             android:name=".admin.NgoApprovalActivity"
+            android:exported="false" />
+
+
+
+
+        <activity
+            android:name=".donor_dashboard_screen"
+            android:exported="false" />
+
+
+        <activity
+            android:name=".food_post_screen"
+            android:exported="false" />
+
+
+        <activity
+            android:name=".forgot_password_screen"
+            android:exported="false" />
+
+        <activity
+            android:name=".NotificationScreen"
+            android:exported="false" />
+
+
+
+
+        <activity
+            android:name=".ProfileScreen"
+            android:exported="false" />
+
+
+        <activity
+            android:name=".request_screen"
+            android:exported="false" />
+
+
+        <activity
+            android:name=".transparency_dashboard"
             android:exported="false" />
 
         <activity

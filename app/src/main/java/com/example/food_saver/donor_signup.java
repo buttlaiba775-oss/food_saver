@@ -2,6 +2,7 @@ package com.example.food_saver;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,16 +27,12 @@ public class donor_signup extends AppCompatActivity {
     private TextView tvAlreadyHaveAccount;
     private FirebaseAuth mAuth;
 
-    private final boolean useDummyMode = true;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.donor_signup);
 
-
         mAuth = FirebaseAuth.getInstance();
-
 
         etName = findViewById(R.id.etDonorName);
         etEmail = findViewById(R.id.etDonorEmail);
@@ -44,10 +41,7 @@ public class donor_signup extends AppCompatActivity {
         etPassword = findViewById(R.id.etDonorPassword);
         etConfirmPassword = findViewById(R.id.etDonorConfirmPassword);
         btnSignUp = findViewById(R.id.btnDonorSignup);
-
-
         tvAlreadyHaveAccount = findViewById(R.id.tvGoToLogin);
-
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,68 +54,77 @@ public class donor_signup extends AppCompatActivity {
                 String confirmPassword = etConfirmPassword.getText().toString().trim();
 
 
-                if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || address.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(donor_signup.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || address.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+                    Toast.makeText(donor_signup.this, "Field must not be empty", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
+
+                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    etEmail.setError("Please enter a valid email address!");
+                    etEmail.requestFocus();
+                    return;
+                }
+
+
+                if (phone.length() != 11 || !phone.startsWith("03")) {
+                    etPhone.setError("Enter a valid 11-digit phone number (e.g., 03XXXXXXXXX)");
+                    etPhone.requestFocus();
+                    return;
+                }
+                if (password.length() < 6) {
+                    etPassword.setError("Password must be at least 6 characters ");
+                    etPassword.requestFocus();
+                    return;
+                }
+
+                // 5. Passwords Match Validation
                 if (!password.equals(confirmPassword)) {
                     Toast.makeText(donor_signup.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (useDummyMode) {
-                    Toast.makeText(donor_signup.this, "Donor Registered Successfully (Dummy)", Toast.LENGTH_SHORT).show();
-                    finish();
-                } else {
 
-                    mAuth.createUserWithEmailAndPassword(email, password)
-                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful() && mAuth.getCurrentUser() != null) {
-                                        String userId = mAuth.getCurrentUser().getUid();
+                mAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful() && mAuth.getCurrentUser() != null) {
+                                    String userId = mAuth.getCurrentUser().getUid();
 
-                                        // Realtime Database Database Map Setup
-                                        HashMap<String, Object> userMap = new HashMap<>();
-                                        userMap.put("name", name);
-                                        userMap.put("email", email);
-                                        userMap.put("phone", phone);
-                                        userMap.put("address", address);
-                                        userMap.put("role", "Donor");
+                                    HashMap<String, Object> userMap = new HashMap<>();
+                                    userMap.put("name", name);
+                                    userMap.put("email", email);
+                                    userMap.put("phone", phone);
+                                    userMap.put("address", address);
+                                    userMap.put("role", "Donor");
 
-                                        FirebaseDatabase.getInstance().getReference("Users").child(userId)
-                                                .setValue(userMap)
-                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        if (task.isSuccessful()) {
-                                                            Toast.makeText(donor_signup.this, "  Registered Successfully", Toast.LENGTH_SHORT).show();
-                                                            finish();
-                                                        } else {
-                                                            Toast.makeText(donor_signup.this, "Database Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                                        }
+                                    FirebaseDatabase.getInstance().getReference("Users").child(userId)
+                                            .setValue(userMap)
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        Toast.makeText(donor_signup.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
+                                                        finish();
+                                                    } else {
+                                                        Toast.makeText(donor_signup.this, "Database Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                                     }
-                                                });
-                                    } else {
-                                        Toast.makeText(donor_signup.this, "Auth Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
+                                                }
+                                            });
+                                } else {
+                                    Toast.makeText(donor_signup.this, "Auth Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
-                            });
-                }
+                            }
+                        });
             }
         });
 
-
         if (tvAlreadyHaveAccount != null) {
-            tvAlreadyHaveAccount.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Wapas login screen par bhejne ke liye
-                    Intent intent = new Intent(donor_signup.this, login_screen.class);
-                    startActivity(intent);
-                    finish();
-                }
+            tvAlreadyHaveAccount.setOnClickListener(v -> {
+                Intent intent = new Intent(donor_signup.this, login_screen.class);
+                startActivity(intent);
+                finish();
             });
         }
     }
