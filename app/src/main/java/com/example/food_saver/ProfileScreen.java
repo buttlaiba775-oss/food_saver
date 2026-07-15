@@ -114,9 +114,7 @@ public class ProfileScreen extends AppCompatActivity {
         btnEditEmail.setOnClickListener(v -> showEditDialog("email", tvProfileEmail));
         btnEditContact.setOnClickListener(v -> showEditDialog("phone", tvProfileContact));
         btnEditAddress.setOnClickListener(v -> showEditDialog("address", tvProfileAddress));
-        btnEditPassword.setOnClickListener(v -> {
-            Toast.makeText(this, "Password cannot be edited here for security. Use forgot password.", Toast.LENGTH_SHORT).show();
-        });
+        btnEditPassword.setOnClickListener(v -> showEditDialog("password", tvProfilePassword));
     }
 
     private void showEditDialog(String fieldKey, TextView targetTextView) {
@@ -124,7 +122,11 @@ public class ProfileScreen extends AppCompatActivity {
         builder.setTitle("Edit " + fieldKey);
 
         final EditText input = new EditText(this);
-        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        if (fieldKey.equals("password")) {
+            input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        } else {
+            input.setInputType(InputType.TYPE_CLASS_TEXT);
+        }
         input.setText(targetTextView.getText().toString());
         builder.setView(input);
 
@@ -149,12 +151,14 @@ public class ProfileScreen extends AppCompatActivity {
         String email = tvProfileEmail.getText().toString();
         String phone = tvProfileContact.getText().toString();
         String address = tvProfileAddress.getText().toString();
+        String password = tvProfilePassword.getText().toString();
 
         java.util.HashMap<String, Object> updates = new java.util.HashMap<>();
         updates.put("name", name);
         updates.put("email", email);
         updates.put("phone", phone);
         updates.put("address", address);
+        updates.put("password", password);
 
         databaseReference.updateChildren(updates)
                 .addOnCompleteListener(task -> {
@@ -177,6 +181,9 @@ public class ProfileScreen extends AppCompatActivity {
                     tvProfileEmail.setText(snapshot.child("email").getValue(String.class));
                     tvProfileAddress.setText(snapshot.child("address").getValue(String.class));
                     tvProfileContact.setText(snapshot.child("phone").getValue(String.class));
+                    if (snapshot.hasChild("password")) {
+                        tvProfilePassword.setText(snapshot.child("password").getValue(String.class));
+                    }
                 }
             }
             @Override

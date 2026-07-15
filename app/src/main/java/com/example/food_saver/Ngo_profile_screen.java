@@ -27,8 +27,8 @@ import java.util.Map;
 
 public class Ngo_profile_screen extends AppCompatActivity {
 
-    private ImageView btnBack, btnEditName, btnEditRegNo, btnEditEmail, btnEditContact, btnEditAddress;
-    private TextView tvOrganizationName, tvProfileName, tvProfileRegNo, tvProfileEmail, tvProfileContact, tvProfileAddress;
+    private ImageView btnBack, ivProfileImage, btnEditName, btnEditRegNo, btnEditEmail, btnEditContact, btnEditAddress, btnEditPassword;
+    private TextView tvOrganizationName, tvProfileName, tvProfileRegNo, tvProfileEmail, tvProfileContact, tvProfileAddress, tvProfilePassword;
     private MaterialButton btnSaveChanges;
     private LinearLayout btnTransparencyDashboard, btnLogOut;
 
@@ -46,18 +46,21 @@ public class Ngo_profile_screen extends AppCompatActivity {
 
         // Initialize Views
         btnBack = findViewById(R.id.btnBack);
+        ivProfileImage = findViewById(R.id.ivProfileImage);
         tvOrganizationName = findViewById(R.id.tvOrganizationName);
         tvProfileName = findViewById(R.id.tvProfileName);
         tvProfileRegNo = findViewById(R.id.tvProfileRegNo);
         tvProfileEmail = findViewById(R.id.tvProfileEmail);
         tvProfileContact = findViewById(R.id.tvProfileContact);
         tvProfileAddress = findViewById(R.id.tvProfileAddress);
+        tvProfilePassword = findViewById(R.id.tvProfilePassword);
 
         btnEditName = findViewById(R.id.btnEditName);
         btnEditRegNo = findViewById(R.id.btnEditRegNo);
         btnEditEmail = findViewById(R.id.btnEditEmail);
         btnEditContact = findViewById(R.id.btnEditContact);
         btnEditAddress = findViewById(R.id.btnEditAddress);
+        btnEditPassword = findViewById(R.id.btnEditPassword);
 
         btnSaveChanges = findViewById(R.id.btnSaveChanges);
         btnTransparencyDashboard = findViewById(R.id.btnTransparencyDashboard);
@@ -98,6 +101,7 @@ public class Ngo_profile_screen extends AppCompatActivity {
         btnEditEmail.setOnClickListener(v -> showEditDialog("email", tvProfileEmail));
         btnEditContact.setOnClickListener(v -> showEditDialog("phone", tvProfileContact));
         btnEditAddress.setOnClickListener(v -> showEditDialog("address", tvProfileAddress));
+        btnEditPassword.setOnClickListener(v -> showEditDialog("password", tvProfilePassword));
     }
 
     private void showEditDialog(String fieldKey, TextView targetTextView) {
@@ -105,7 +109,11 @@ public class Ngo_profile_screen extends AppCompatActivity {
         builder.setTitle("Edit " + fieldKey);
 
         final EditText input = new EditText(this);
-        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        if (fieldKey.equals("password")) {
+            input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        } else {
+            input.setInputType(InputType.TYPE_CLASS_TEXT);
+        }
         input.setText(targetTextView.getText().toString());
         builder.setView(input);
 
@@ -131,6 +139,7 @@ public class Ngo_profile_screen extends AppCompatActivity {
         String email = tvProfileEmail.getText().toString();
         String phone = tvProfileContact.getText().toString();
         String address = tvProfileAddress.getText().toString();
+        String password = tvProfilePassword.getText().toString();
 
         Map<String, Object> updates = new HashMap<>();
         updates.put("name", name);
@@ -138,6 +147,7 @@ public class Ngo_profile_screen extends AppCompatActivity {
         updates.put("email", email);
         updates.put("phone", phone);
         updates.put("address", address);
+        updates.put("password", password);
 
         databaseReference.updateChildren(updates)
                 .addOnCompleteListener(task -> {
@@ -161,6 +171,9 @@ public class Ngo_profile_screen extends AppCompatActivity {
                     tvProfileEmail.setText(snapshot.child("email").getValue(String.class));
                     tvProfileAddress.setText(snapshot.child("address").getValue(String.class));
                     tvProfileContact.setText(snapshot.child("phone").getValue(String.class));
+                    if (snapshot.hasChild("password")) {
+                        tvProfilePassword.setText(snapshot.child("password").getValue(String.class));
+                    }
                 }
             }
 

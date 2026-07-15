@@ -61,7 +61,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/circle_brown_border"
                     android:padding="20dp"
-                    app:tint="#7A4F37" />
+                    app:tint="#FFFFFF" />
 
                 <ImageView
                     android:id="@+id/btnCamera"
@@ -72,7 +72,7 @@
                     android:background="@drawable/circle_brown_border"
                     android:elevation="4dp"
                     android:padding="6dp"
-                    android:src="@android:drawable/ic_camera"
+                    android:src="@drawable/ic_camera"
                     app:tint="#7A4F37" />
 
             </RelativeLayout>
